@@ -1,0 +1,23 @@
+{
+	"id": "ouija",
+	"name": "Ouija",
+	"display_name": "Ouija",
+	"author": ["TamerSoup625"],
+	"description": "Extension for Cryptid which focuses on modifying vanilla features.",
+	"prefix": "ouija",
+	"main_file": "main.lua",
+	"priority": 99999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999,
+	"badge_colour": "0000ff",
+	"badge_text_colour": "ffffff",
+	"version": "0.0.0",
+	"dependencies": [
+		{
+			"id": "Steamodded",
+			"min_version": "1.0.0~ALPHA-1030e"
+		},
+		{
+			"id": "Cryptid",
+			"min_version": "0.5.0"
+		}
+	]
+}
