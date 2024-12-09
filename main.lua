@@ -347,6 +347,7 @@ new_item(SMODS.Back, "magic", {
 
 new_item(SMODS.Joker, "midas_mask", {
     config = {extra = "Pair", jolly = { t_mult = 8, type = "Pair" }},
+    effect = "M Joker",
     name = "ouija-Midas Mask", --will prevent old calculation code from working
     loc_vars = function (self, info_queue, card)
 		info_queue[#info_queue + 1] = {
@@ -392,6 +393,8 @@ new_item(SMODS.Joker, "midas_mask", {
         end
     end
 })
+
+Cryptid.M_jokers["j_midas_mask"] = true
 
 
 new_item(SMODS.Tag, "voucher", {
