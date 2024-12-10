@@ -464,5 +464,28 @@ function Card:set_cost()
 end
 
 
+new_item(SMODS.Joker, "dna", {
+    name = "ouija-DNA", --will prevent old calculation code from working
+    calculate = function (_, card, context)
+        if context.ending_shop and G.deck.cards[1] then
+            G.E_MANAGER:add_event(Event({
+                func = function()
+                    G.playing_card = (G.playing_card and G.playing_card + 1) or 1
+                    local new_card = copy_card(pseudorandom_element(G.deck.cards, pseudoseed('dna')), nil, nil, G.playing_card)
+                    new_card:set_edition({negative = true}, true)
+                    new_card:add_to_deck()
+                    G.deck.config.card_limit = G.deck.config.card_limit + 1
+                    table.insert(G.playing_cards, new_card)
+                    G.deck:emplace(new_card)
+                    playing_card_joker_effects({true})
+                    return true
+                end}))
+            card_eval_status_text(context.blueprint_card or card, 'extra', nil, nil, nil, {message = localize('k_duplicated_ex')})
+            return nil, true
+        end
+    end
+})
+
+
 -- pseudorandom\((.*?)\) ?< ?G\.GAME\.probabilities\.normal ?\/ ?(.*?)( |\)|$)
 -- listed_chance($1, $2)$3

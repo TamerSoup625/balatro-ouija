@@ -94,6 +94,15 @@ return {
                     "{C:inactive,s:0.8}m",
                 },
             },
+            j_dna={
+                name="DNA",
+                text={
+                    "Creates a {C:dark_edition}Negative{} copy of",
+                    "{C:attention}1{} random {C:attention}playing card{}",
+                    "in your possession",
+                    "at the end of the {C:attention}shop",
+                },
+            },
         },
         Tag = {
             tag_voucher={
