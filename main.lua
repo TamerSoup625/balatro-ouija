@@ -194,7 +194,7 @@ table.insert(Cryptid.memepack, "j_matador")
 
 new_item(SMODS.Joker, "matador", {
     config = {extra = {dollar_bonus = 8, odds = 4}},
-    name = "ouija-Matador", --will prevent old calculation code from working
+    name = "ouija-Matador", -- will prevent old calculation code from working
     loc_vars = function (_, info_queue, card)
         return {vars = {card.ability.extra.dollar_bonus}}
     end,
@@ -217,7 +217,7 @@ new_item(SMODS.Joker, "matador", {
 
 new_item(SMODS.Joker, "hit_the_road", {
     config = {extra = {x_mult = 1.5, jack_count = 0}},
-    name = "ouija-Hit the Road", --will prevent old calculation code from working
+    name = "ouija-Hit the Road", -- will prevent old calculation code from working
     loc_vars = function (_, info_queue, card)
         return {vars = {card.ability.extra.x_mult, card.ability.extra.jack_count}}
     end,
@@ -304,7 +304,7 @@ new_item(SMODS.Enhancement, "stone", {
 
 new_item(SMODS.Joker, "credit_card", {
     config = {extra = {max_debt = 20, ouija_interest_start = -10}},
-    name = "ouija-Credit Card", --will prevent old calculation code from working
+    name = "ouija-Credit Card", -- will prevent old calculation code from working
     loc_vars = function (_, info_queue, card)
         return {vars = {card.ability.extra.max_debt, -card.ability.extra.ouija_interest_start}}
     end,
@@ -348,7 +348,7 @@ new_item(SMODS.Back, "magic", {
 new_item(SMODS.Joker, "midas_mask", {
     config = {extra = "Pair", jolly = { t_mult = 8, type = "Pair" }},
     effect = "M Joker",
-    name = "ouija-Midas Mask", --will prevent old calculation code from working
+    name = "ouija-Midas Mask", -- will prevent old calculation code from working
     loc_vars = function (self, info_queue, card)
 		info_queue[#info_queue + 1] = {
 			set = "Joker",
@@ -398,7 +398,7 @@ Cryptid.M_jokers["j_midas_mask"] = true
 
 
 new_item(SMODS.Tag, "voucher", {
-    name = "ouija-Voucher Tag", --will prevent old calculation code from working
+    name = "ouija-Voucher Tag", -- will prevent old calculation code from working
     apply = function (tag, context)
 		if context.type == "voucher_add" then
 			tag:yep('+', G.C.SECONDARY_SET.Voucher, function() 
@@ -465,7 +465,7 @@ end
 
 
 new_item(SMODS.Joker, "dna", {
-    name = "ouija-DNA", --will prevent old calculation code from working
+    name = "ouija-DNA", -- will prevent old calculation code from working
     calculate = function (_, card, context)
         if context.ending_shop and G.deck.cards[1] then
             G.E_MANAGER:add_event(Event({
@@ -484,6 +484,20 @@ new_item(SMODS.Joker, "dna", {
             return nil, true
         end
     end
+})
+
+
+new_item(SMODS.Blind, "eye", {
+    name = "Ouija-The Eye", -- will prevent old calculation code from working
+	cry_cap_score = function(self, score)
+        if G.GAME.current_round.hands_played == 0 then
+            return -2 * score
+        end
+        return score
+	end,
+	in_pool = function()
+		return G.GAME.round_resets.hands >= 2 and (not next(SMODS.find_card("j_cry_maze")))
+	end,
 })
 
 

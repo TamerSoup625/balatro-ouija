@@ -19,6 +19,13 @@ return {
                     "poker hand by 2/3",
                 },
             },
+            bl_eye={
+                name="The Eye",
+                text={
+                    "-2X score on",
+                    "first hand of round",
+                },
+            },
         },
         Joker = {
             j_ancient = {
