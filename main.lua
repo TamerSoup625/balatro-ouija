@@ -496,7 +496,7 @@ new_item(SMODS.Blind, "eye", {
         return score
 	end,
 	in_pool = function()
-		return G.GAME.round_resets.hands >= 2 and (not next(SMODS.find_card("j_cry_maze")))
+		return G.GAME.round_resets.hands >= 2 and (not next(SMODS.find_card("j_cry_maze"))) and G.GAME.round_resets.ante >= 2
 	end,
 })
 
