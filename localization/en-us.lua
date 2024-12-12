@@ -129,6 +129,16 @@ return {
                 },
             },
         },
+        Tarot = {
+            c_wheel_of_fortune={
+                name="The Wheel of Fortune",
+                text={
+                    "{C:green}#1# in #2#{} chance to add",
+                    "a random {C:dark_edition}Edition",
+                    "to a random {C:attention}Joker",
+                },
+            },
+        },
         Spectral = {
             c_hex = {
                 name = "Hex",

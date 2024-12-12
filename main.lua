@@ -544,5 +544,50 @@ function level_up_hand(card, hand, instant, amount)
 end
 
 
+new_item(SMODS.Tarot, "wheel_of_fortune", {
+    use = function (_, card, area, copier)
+        local used_tarot = copier or card
+        if pseudorandom('wheel_of_fortune') < G.GAME.probabilities.normal/card.ability.extra then
+            local temp_pool = card.eligible_strength_jokers
+            G.E_MANAGER:add_event(Event({trigger = 'after', delay = 0.4, func = function()
+                local over = false
+                local eligible_card = pseudorandom_element(temp_pool, pseudoseed("wheel_of_fortune"))
+                -- If I use wheel_of_fortune key it wouldn't change anything
+                -- https://github.com/Steamopollys/Steamodded/blob/cedabe545f2c51547dcbfb7e981e2cedf3c7524a/core/overrides.lua#L1567
+                local edition = poll_edition('ouija_wheel_of_fortune', nil, nil, true)
+                eligible_card:set_edition(edition, true)
+                check_for_unlock({type = 'have_edition'})
+                used_tarot:juice_up(0.3, 0.5)
+            return true end }))
+        else
+            G.E_MANAGER:add_event(Event({trigger = 'after', delay = 0.4, func = function()
+                attention_text({
+                    text = localize('k_nope_ex'),
+                    scale = 1.3,
+                    hold = 1.4,
+                    major = used_tarot,
+                    backdrop_colour = G.C.SECONDARY_SET.Tarot,
+                    align = (G.STATE == G.STATES.TAROT_PACK or G.STATE == G.STATES.SPECTRAL_PACK) and 'tm' or 'cm',
+                    offset = {x = 0, y = (G.STATE == G.STATES.TAROT_PACK or G.STATE == G.STATES.SPECTRAL_PACK) and -0.2 or 0},
+                    silent = true
+                    })
+                    G.E_MANAGER:add_event(Event({trigger = 'after', delay = 0.06*G.SETTINGS.GAMESPEED, blockable = false, blocking = false, func = function()
+                        play_sound('tarot2', 0.76, 0.4);return true end}))
+                play_sound('tarot2', 1, 0.4);
+                used_tarot:juice_up(0.3, 0.5)
+            return true end }))
+        end
+    end,
+    loc_vars = function (self, info_queue, card)
+        if card then
+            return {vars = {G.GAME.probabilities.normal, card.ability.extra}}
+        else
+            -- It would break with Wheel of Hope if we always did card.ability
+            return {vars = {G.GAME.probabilities.normal, self.config.extra}}
+        end
+    end,
+})
+
+
 -- pseudorandom\((.*?)\) ?< ?G\.GAME\.probabilities\.normal ?\/ ?(.*?)( |\)|$)
 -- listed_chance($1, $2)$3
