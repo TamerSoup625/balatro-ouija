@@ -501,5 +501,48 @@ new_item(SMODS.Blind, "eye", {
 })
 
 
+new_item(SMODS.Joker, "constellation", {
+    name = "Ouija-Constellation", -- will prevent old calculation code from working
+    config = {extra = {chip_mod = 8, chips = 0}},
+    loc_vars = function (_, info_queue, card)
+        return {vars = {card.ability.extra.chip_mod, card.ability.extra.chips}}
+    end,
+    calculate = function (_, card, context)
+        if context.joker_main then
+            return {
+                message = localize{type='variable',key='a_chips',vars={card.ability.extra.chips}},
+                chip_mod = card.ability.extra.chips,
+                colour = G.C.CHIPS
+            }
+        elseif context.ouija_level_up_hand and context.amount >= 1 then
+            card.ability.extra.chips = card.ability.extra.chips + card.ability.extra.chip_mod * context.amount
+            -- Avoids status text from appearing multiple times
+            card.ability.status_text_appeared = false
+            G.E_MANAGER:add_event(Event({
+                func = function()
+                    if not card.ability.status_text_appeared then
+                        card_eval_status_text(card, 'extra', nil, nil, nil, {
+                                message = localize{type='variable',key='a_chips',vars={card.ability.extra.chips}},
+                                colour = G.C.CHIPS
+                        })
+                        card.ability.status_text_appeared = true
+                    end
+                    return true
+                end}))
+            return
+        end
+    end
+})
+
+local level_up_hand_ref = level_up_hand
+function level_up_hand(card, hand, instant, amount)
+    local ret = level_up_hand_ref(card, hand, instant, amount)
+    for i = 1, #G.jokers.cards do
+        G.jokers.cards[i]:calculate_joker({ouija_level_up_hand = true, hand = hand, amount = amount or 1})
+    end
+    return ret
+end
+
+
 -- pseudorandom\((.*?)\) ?< ?G\.GAME\.probabilities\.normal ?\/ ?(.*?)( |\)|$)
 -- listed_chance($1, $2)$3

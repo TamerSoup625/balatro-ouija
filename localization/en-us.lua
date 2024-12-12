@@ -110,6 +110,15 @@ return {
                     "at the end of the {C:attention}shop",
                 },
             },
+            j_constellation={
+                name="Constellation",
+                text={
+                    "This Joker gains",
+                    "{C:chips}+#1#{} Chips for each",
+                    "{C:attention}poker hand{} level up",
+                    "{C:inactive}(Currently {C:chips}+#2#{C:inactive} Chips)",
+                },
+            },
         },
         Tag = {
             tag_voucher={
