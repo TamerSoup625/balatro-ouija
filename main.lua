@@ -544,6 +544,7 @@ function level_up_hand(card, hand, instant, amount)
 end
 
 
+-- Idea from Luigicat11
 new_item(SMODS.Tarot, "wheel_of_fortune", {
     use = function (_, card, area, copier)
         local used_tarot = copier or card
