@@ -119,6 +119,20 @@ return {
                     "{C:inactive}(Currently {C:chips}+#2#{C:inactive} Chips)",
                 },
             },
+            j_mr_bones={
+                name="Mr. Bones",
+                text={
+                    "Prevents Death",
+                    "if chips scored",
+                    "are at least {C:attention}26%",
+                    "of required chips",
+                    "{S:1.1,C:red,E:2}self destructs?{}",
+                },
+                unlock={
+                    "Lose {C:attention,E:1}#1#{} runs",
+                    "{C:inactive}(#2#)",
+                },
+            },
         },
         Tag = {
             tag_voucher={
@@ -165,6 +179,24 @@ return {
                     "no rank or suit",
                 },
             }
+        },
+    },
+    misc = {
+        dictionary = {
+            ouija_last_breath1  = "Last Breath!",
+            ouija_last_breath2  = "heh.",
+            ouija_last_breath3  = "get ready...",
+            ouija_last_breath4  = "get dunked on!",
+            ouija_last_breath5  = "poder político!",
+            ouija_last_breath6  = "i have to continue...",
+            ouija_last_breath7  = "this is your punishment.",
+            ouija_last_breath8  = "don't you get it?",
+            ouija_last_breath9  = "not my final form...",
+            ouija_last_breath10 = "prepare for the worst!",
+            ouija_last_breath11 = "i remember you're genocides",
+            ouija_last_breath12 = "Saved!",
+            ouija_last_breath13 = "¤¤¤¤¤¤¤¤¤¤",
+            ouija_miss = "Miss",
         },
     },
 }

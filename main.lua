@@ -590,5 +590,73 @@ new_item(SMODS.Tarot, "wheel_of_fortune", {
 })
 
 
+-- Thanks Tizio a cui Piacciono Cose for giving me ideas for sans
+new_item(SMODS.Joker, "mr_bones", {
+    name = "Ouija-Mr. Bones",
+    calculate = function (_, card, context)
+        if context.end_of_round and (not context.blueprint) and context.game_over and not context.retrigger_joker then
+            if to_big(G.GAME.chips) / G.GAME.blind.chips >= to_big(0.26) then
+                -- Cycles editions like ://REWORK
+                local found_index = 1
+                if card.edition then
+                    for i, v in ipairs(G.P_CENTER_POOLS.Edition) do
+                        if v.key == card.edition.key then
+                            found_index = i
+                            break
+                        end
+                    end
+                end
+                found_index = found_index + 1
+                if found_index > #G.P_CENTER_POOLS.Edition then
+                    found_index = found_index - #G.P_CENTER_POOLS.Edition
+                end
+                local new_edition = G.P_CENTER_POOLS.Edition[found_index].key
+                card:set_edition((new_edition or "e_foil"), true)
+                return {
+                        message = localize('ouija_last_breath' .. math.random(13)),
+                        saved = true,
+                        colour = G.C.RED,
+                }
+            end
+        end
+    end,
+    cost = 1,
+})
+
+local G_FUNCS_sell_card_ref = G.FUNCS.sell_card
+G.FUNCS.sell_card = function (e)
+    local sans = e.config.ref_table
+    if sans.config.center.key == "j_mr_bones" then
+        G.jokers:unhighlight_all()
+        if #G.jokers.cards > 1 then
+            local sans_index = nil
+            for key, value in pairs(G.jokers.cards) do
+                if value == sans then
+                    sans_index = key
+                    break
+                end
+            end
+            assert(sans_index ~= nil, "Couldn't find sans in G.jokers.cards. Please report this issue")
+            local new_index = sans_index - 1
+            if sans_index == 1 then
+                new_index = 2
+            end
+            local card_to_swap = G.jokers.cards[new_index]
+            G.jokers.cards[sans_index] = nil
+            G.jokers.cards[new_index] = nil
+            G.jokers.cards[sans_index] = card_to_swap
+            G.jokers.cards[new_index] = sans
+            G.jokers:set_ranks()
+        end
+        card_eval_status_text(sans, 'extra', nil, nil, nil, {
+                message = localize('ouija_miss'),
+                colour = G.C.SECONDARY_SET.Tarot,
+        })
+        return
+    end
+    return G_FUNCS_sell_card_ref(e)
+end
+
+
 -- pseudorandom\((.*?)\) ?< ?G\.GAME\.probabilities\.normal ?\/ ?(.*?)( |\)|$)
 -- listed_chance($1, $2)$3
