@@ -514,7 +514,7 @@ new_item(SMODS.Joker, "constellation", {
                 chip_mod = card.ability.extra.chips,
                 colour = G.C.CHIPS
             }
-        elseif context.ouija_level_up_hand and context.amount >= 1 then
+        elseif context.ouija_level_up_hand and context.amount >= 1 and not context.blueprint then
             card.ability.extra.chips = card.ability.extra.chips + card.ability.extra.chip_mod * context.amount
             -- Avoids status text from appearing multiple times
             card.ability.status_text_appeared = false
@@ -529,7 +529,7 @@ new_item(SMODS.Joker, "constellation", {
                     end
                     return true
                 end}))
-            return
+            return nil, true
         end
     end
 })
