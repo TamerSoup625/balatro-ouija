@@ -133,6 +133,14 @@ return {
                     "{C:inactive}(#2#)",
                 },
             },
+            --[[j_walkie_talkie={
+                name="Walkie Talkie",
+                text={
+                    "Draw a {C:attention}10{} for each played {C:attention}4",
+                    "Draw a {C:attention}4{} for each played {C:attention}10",
+                    "{C:inactive}(Must have room, draw if possible)"
+                },
+            },]]
         },
         Tag = {
             tag_voucher={

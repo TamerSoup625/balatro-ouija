@@ -658,5 +658,38 @@ G.FUNCS.sell_card = function (e)
 end
 
 
+-- I have to add a variable to playing cards so that they're not drawn "twice" with duplicate jokers
+--[[new_item(SMODS.Joker, "walkie_talkie", {
+    name = "Ouija-Mr. Bones",
+    blueprint_compat = false,
+    config = {},
+    loc_vars = function (_, info_queue, card)
+        return {vars = {}}
+    end,
+    calculate = function (_, card, context)
+        if context.cardarea == G.jokers and context.after and (not context.blueprint) and (not context.retrigger_joker) then
+            local drawn_indexes_set = {}
+            for index, value in ipairs(context.full_hand) do
+                local card_id = value:get_id()
+                if card_id == 10 or card_id == 4 then
+
+                    -- TODO: Do not draw more cards than hand size
+                    local id_to_draw = ({[10] = 4, [4] = 10})[card_id]
+                    for i = 1, #G.deck.cards do
+                        -- draw_card is deferred, must avoid trying to draw the same card multiple times
+                        if G.deck.cards[i]:get_id() == id_to_draw and not drawn_indexes_set[i] then
+                            draw_card(G.deck, G.hand, nil, nil, false, G.deck.cards[i])
+                            drawn_indexes_set[i] = true
+                            break
+                        end
+                    end
+
+                end
+            end
+        end
+    end,
+})]]
+
+
 -- pseudorandom\((.*?)\) ?< ?G\.GAME\.probabilities\.normal ?\/ ?(.*?)( |\)|$)
 -- listed_chance($1, $2)$3
