@@ -774,5 +774,34 @@ new_item(SMODS.Voucher, "crystal_ball", {
 })
 
 
+new_item(SMODS.Joker, "hallucination", {
+    loc_vars = function (_, info_queue, card)
+        return {vars = {G.GAME.probabilities.normal, card.ability.extra}}
+    end,
+    name = "ouija-Hallucination", -- will prevent old calculation code from working
+    calculate = function (_, card, context)
+        if
+            context.open_booster and
+            #G.consumeables.cards + G.GAME.consumeable_buffer < G.consumeables.config.card_limit and
+            pseudorandom('halu'..G.GAME.round_resets.ante) < G.GAME.probabilities.normal/card.ability.extra
+        then
+            G.GAME.consumeable_buffer = G.GAME.consumeable_buffer + 1
+            G.E_MANAGER:add_event(Event({
+                trigger = 'before',
+                delay = 0.0,
+                func = (function()
+                    local forced_key = get_random_consumable("hallu")
+                    local new_card = create_card('Consumeables', G.consumeables, nil, nil, nil, nil, forced_key.config.center_key, 'hal')
+                    new_card:add_to_deck()
+                    G.consumeables:emplace(new_card)
+                    G.GAME.consumeable_buffer = 0
+                    return true
+                end)}))
+            card_eval_status_text(card, 'extra', nil, nil, nil, {message = localize('k_plus_consumeable')})
+        end
+    end
+})
+
+
 -- pseudorandom\((.*?)\) ?< ?G\.GAME\.probabilities\.normal ?\/ ?(.*?)( |\)|$)
 -- listed_chance($1, $2)$3

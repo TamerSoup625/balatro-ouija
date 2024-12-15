@@ -141,6 +141,15 @@ return {
                     "{C:inactive}(Must have room, draw if possible)"
                 },
             },
+            j_hallucination={
+                name="Hallucination",
+                text={
+                    "{C:green}#1# in #2#{} chance to create a",
+                    "random {C:attention}consumable{} when",
+                    "any {C:attention}Booster Pack{} is opened",
+                    "{C:inactive}(Must have room)",
+                },
+            },
         },
         Tag = {
             tag_voucher={
@@ -232,7 +241,8 @@ return {
             ouija_last_breath12 = "Saved!",
             ouija_last_breath13 = "¤¤¤¤¤¤¤¤¤¤",
             ouija_miss = "Miss",
-            k_received_ex = "Received!"
+            k_received_ex = "Received!",
+            k_plus_consumeable = "+1 Consumable",
         },
     },
 }
