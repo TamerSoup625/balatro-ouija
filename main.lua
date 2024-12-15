@@ -691,5 +691,62 @@ end
 })]]
 
 
+-- If a mod wants to add compatibility, ensure it initializes Ouija_dice_jokers by adding this line:
+--[[
+Ouija_dice_jokers = Ouija_dice_jokers or {}
+]]
+Ouija_dice_jokers = Ouija_dice_jokers or {}
+table.insert(Ouija_dice_jokers, "j_oops")
+table.insert(Ouija_dice_jokers, "j_cry_chocolate_dice")
+
+local function get_dice_joker(seed)
+    local dice_keys = {}
+    for k, v in pairs(Ouija_dice_jokers) do
+        if not G.GAME.banned_keys[v] and G.P_CENTERS[v] then
+            table.insert(dice_keys, v)
+        end
+    end
+    if #dice_keys <= 0 then
+	    return "j_cry_cube"
+    else
+    	return pseudorandom_element(dice_keys, pseudoseed(seed))
+    end
+end
+
+-- TODO: Add tooltip for what are dice jokers
+new_item(SMODS.Tag, "d_six", {
+    config = {type = "store_joker_create"},
+    name = "ouija-D6 Tag", -- will prevent old calculation code from working
+	apply = function(tag, context)
+		if context.type == "store_joker_create" then
+			local card
+			card = create_card(
+				"Joker",
+				context.area,
+				nil,
+				nil,
+				nil,
+				nil,
+				get_dice_joker("ouija_d6")
+			)
+			create_shop_card_ui(card, "Joker", context.area)
+			card.states.visible = false
+			tag:yep("+", G.C.GREEN, function()
+				card:start_materialize()
+				card.ability.couponed = true
+                card:set_cost()
+				return true
+			end)
+			tag.triggered = true
+			return card
+		end
+	end,
+	loc_vars = function(self, info_queue)
+		info_queue[#info_queue + 1] = { set = "Other", key = "dice_jokers" }
+		return { vars = {} }
+	end,
+})
+
+
 -- pseudorandom\((.*?)\) ?< ?G\.GAME\.probabilities\.normal ?\/ ?(.*?)( |\)|$)
 -- listed_chance($1, $2)$3

@@ -150,6 +150,13 @@ return {
                     "to the next shop",
                 },
             },
+            tag_d_six={
+                name="D6 Tag",
+                text={
+                    "Shop has a free",
+                    "{C:green}Dice{} Joker",
+                },
+            },
         },
         Tarot = {
             c_wheel_of_fortune={
@@ -187,6 +194,16 @@ return {
                     "no rank or suit",
                 },
             }
+        },
+        Other = {
+            dice_jokers = {
+                name = "Dice Jokers",
+                text = {
+                    "{s:0.8}Oops! All 6s,",
+                    "{s:0.8}Chocolate Die,",
+                    "{s:0.8}etc.",
+                },
+            },
         },
     },
     misc = {
