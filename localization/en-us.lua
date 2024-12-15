@@ -195,6 +195,16 @@ return {
                 },
             }
         },
+        Voucher = {
+            v_crystal_ball={
+                name="Crystal Ball",
+                text={
+                    "{C:attention}+1{} consumable slot",
+                    "{C:tarot}The Fool{} is more likely",
+                    "to appear in shop",
+                },
+            },
+        },
         Other = {
             dice_jokers = {
                 name = "Dice Jokers",

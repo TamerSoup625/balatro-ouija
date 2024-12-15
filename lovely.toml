@@ -67,3 +67,25 @@ payload = '''
 G.GAME.dollars = G.GAME.dollars + G.GAME.ouija_interest_start
 '''
 match_indent = true
+
+
+[[patches]]
+[patches.pattern]
+target = "functions/common_events.lua"
+pattern = "if _pool_size == 0 then"
+position = "before"
+payload = '''
+-- Actually the stuff for pool empty is later
+-- I felt like injecting on a comment is too risky
+if G.GAME.used_vouchers["v_crystal_ball"] and _type == "Tarot" and _append == "sho" then
+    for k, v in pairs(_pool) do
+        if v == "c_fool" then
+            if pseudorandom("crystal_fool") < 0.2 then
+                _pool = {"c_fool"}
+            end
+            break
+        end
+    end
+end
+'''
+match_indent = true

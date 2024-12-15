@@ -766,5 +766,13 @@ new_item(SMODS.Tag, "d_six", {
 })
 
 
+new_item(SMODS.Voucher, "crystal_ball", {
+	loc_vars = function(self, info_queue)
+		info_queue[#info_queue + 1] = G.P_CENTERS.c_fool
+		return { vars = {} }
+	end,
+})
+
+
 -- pseudorandom\((.*?)\) ?< ?G\.GAME\.probabilities\.normal ?\/ ?(.*?)( |\)|$)
 -- listed_chance($1, $2)$3
