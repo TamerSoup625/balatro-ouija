@@ -659,36 +659,54 @@ end
 
 
 -- I have to add a variable to playing cards so that they're not drawn "twice" with duplicate jokers
---[[new_item(SMODS.Joker, "walkie_talkie", {
-    name = "Ouija-Mr. Bones",
-    blueprint_compat = false,
+new_item(SMODS.Joker, "walkie_talkie", {
+    name = "Ouija-Walkie Talkie",
     config = {},
     loc_vars = function (_, info_queue, card)
         return {vars = {}}
     end,
     calculate = function (_, card, context)
-        if context.cardarea == G.jokers and context.after and (not context.blueprint) and (not context.retrigger_joker) then
-            local drawn_indexes_set = {}
+        -- never nesters gonna love this code
+        if context.cardarea == G.jokers and context.after then
+            G.GAME.ouija_walkie_buffer = G.GAME.ouija_walkie_buffer or 0
+            local is_triggered = false
             for index, value in ipairs(context.full_hand) do
+                if #G.hand.cards + G.GAME.ouija_walkie_buffer >= G.hand.config.card_limit then
+                    -- Reached max hand size, no more room
+                    break
+                end
                 local card_id = value:get_id()
-                if card_id == 10 or card_id == 4 then
+                if (card_id == 10 or card_id == 4) and (not value.debuff) then
 
-                    -- TODO: Do not draw more cards than hand size
                     local id_to_draw = ({[10] = 4, [4] = 10})[card_id]
                     for i = 1, #G.deck.cards do
-                        -- draw_card is deferred, must avoid trying to draw the same card multiple times
-                        if G.deck.cards[i]:get_id() == id_to_draw and not drawn_indexes_set[i] then
-                            draw_card(G.deck, G.hand, nil, nil, false, G.deck.cards[i])
-                            drawn_indexes_set[i] = true
+                        -- draw_card is deferred, so must avoid trying to draw the same card multiple times
+                        local card_to_draw = G.deck.cards[i]
+                        if card_to_draw:get_id() == id_to_draw and not card_to_draw.ouija_being_drawn then
+                            draw_card(G.deck, G.hand, nil, nil, true, card_to_draw)
+                            is_triggered = true
+                            card_to_draw.ouija_being_drawn = true
+                            G.GAME.ouija_walkie_buffer = G.GAME.ouija_walkie_buffer + 1
+                            G.E_MANAGER:add_event(Event({func = (function()
+                                card_to_draw.ouija_being_drawn = false
+                                G.GAME.ouija_walkie_buffer = 0
+                                return true
+                            end)}))
                             break
                         end
                     end
 
                 end
             end
+
+            if is_triggered then
+                return {
+                    message = localize('k_received_ex')
+                }
+            end
         end
     end,
-})]]
+})
 
 
 -- If a mod wants to add compatibility, ensure it initializes Ouija_dice_jokers by adding this line:
