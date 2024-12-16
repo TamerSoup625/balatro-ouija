@@ -91,3 +91,26 @@ if G.GAME.used_vouchers["v_crystal_ball"] and _type == "Tarot" and _append == "s
 end
 '''
 match_indent = true
+
+
+# Half Joker making all Blinds Bosses
+# Also override the UI box since taking ownership is not enough
+[[patches]]
+[patches.pattern]
+target = "card.lua"
+pattern = "elseif self.ability.name == 'Half Joker' then loc_vars = {self.ability.extra.mult, self.ability.extra.size}"
+position = "at"
+payload = '''
+elseif self.ability.name == 'Half Joker' then
+'''
+match_indent = true
+
+[[patches]]
+[patches.pattern]
+target = "blind.lua"
+pattern = "self.boss = blind and not not blind.boss"
+position = "after"
+payload = '''
+self.boss = self.boss or (blind and next(SMODS.find_card("j_half")))
+'''
+match_indent = true
