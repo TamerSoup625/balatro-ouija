@@ -803,5 +803,35 @@ new_item(SMODS.Joker, "hallucination", {
 })
 
 
+local sinful_jokers = {
+    {"greedy_joker", "Diamonds"},
+    {"lusty_joker", "Hearts"},
+    {"gluttenous_joker", "Clubs"},
+}
+for _, value in pairs(sinful_jokers) do
+    new_item(SMODS.Joker, value[1], {
+        config = {extra = {suit_mult = 6, suit = value[2]}},
+        effect = "Almost Suit Mult",
+        name = "ouija-" .. value[2] .. " Sin Joker", -- will prevent old calculation code from working
+        loc_vars = function (_, info_queue, card)
+            return {vars = {card.ability.extra.suit_mult, localize(card.ability.extra.suit, 'suits_singular')}}
+        end,
+        calculate = function (_, card, context)
+            if
+                context.individual and
+                context.cardarea == G.play and
+                context.other_card:is_suit(card.ability.extra.suit) and
+                (not next(context.poker_hands["Flush"]))
+            then
+                return {
+                    mult = card.ability.extra.suit_mult,
+                    card = card,
+                }
+            end
+        end,
+    })
+end
+
+
 -- pseudorandom\((.*?)\) ?< ?G\.GAME\.probabilities\.normal ?\/ ?(.*?)( |\)|$)
 -- listed_chance($1, $2)$3

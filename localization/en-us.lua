@@ -150,6 +150,33 @@ return {
                     "{C:inactive}(Must have room)",
                 },
             },
+            j_greedy_joker={
+                name="Greedy Joker",
+                text={
+                    "Played cards with {C:diamonds}#2#{} suit",
+                    "give {C:mult}+#1#{} Mult when scored",
+                    "if played hand does",
+                    "{C:red}not{} contain a {C:attention}Flush",
+                },
+            },
+            j_lusty_joker={
+                name="Lusty Joker",
+                text={
+                    "Played cards with {C:hearts}#2#{} suit",
+                    "give {C:mult}+#1#{} Mult when scored",
+                    "if played hand does",
+                    "{C:red}not{} contain a {C:attention}Flush",
+                },
+            },
+            j_gluttenous_joker={
+                name="Gluttonous Joker",
+                text={
+                    "Played cards with {C:clubs}#2#{} suit",
+                    "give {C:mult}+#1#{} Mult when scored",
+                    "if played hand does",
+                    "{C:red}not{} contain a {C:attention}Flush",
+                },
+            },
         },
         Tag = {
             tag_voucher={
