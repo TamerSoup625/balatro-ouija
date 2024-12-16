@@ -860,5 +860,25 @@ function Blind:set_blind(blind, reset, silent)
 end
 
 
+new_item(SMODS.Spectral, "soul", {
+    use = function (_, card, area, copier)
+        local used_tarot = copier or card
+        G.E_MANAGER:add_event(Event({trigger = 'after', delay = 0.4, func = function()
+            play_sound('timpani')
+            local new_card = create_card('Joker', G.jokers, true, nil, nil, nil, nil, 'sou')
+            new_card:set_edition({negative = true}, true)
+            new_card:add_to_deck()
+            G.jokers:emplace(new_card)
+            check_for_unlock{type = 'spawn_legendary'}
+            used_tarot:juice_up(0.3, 0.5)
+            return true end }))
+        delay(0.6)
+    end,
+    can_use = function(self, card)
+        return true
+    end,
+})
+
+
 -- pseudorandom\((.*?)\) ?< ?G\.GAME\.probabilities\.normal ?\/ ?(.*?)( |\)|$)
 -- listed_chance($1, $2)$3

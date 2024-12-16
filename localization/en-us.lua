@@ -228,6 +228,13 @@ return {
                     "by {C:attention}3{} levels",
                 },
             },
+            c_soul={
+                name="The Soul",
+                text={
+                    "Creates a {C:dark_edition}Negative",
+                    "{C:legendary,E:1}Legendary{} Joker",
+                },
+            },
         },
         Enhanced = {
             m_stone = {
