@@ -69,6 +69,8 @@ G.GAME.dollars = G.GAME.dollars + G.GAME.ouija_interest_start
 match_indent = true
 
 
+# Crystal Ball make The Fool more likely
+# I didn't want to mess with other Cryptid's get_current_pool overrides
 [[patches]]
 [patches.pattern]
 target = "functions/common_events.lua"
