@@ -833,5 +833,32 @@ for _, value in pairs(sinful_jokers) do
 end
 
 
+new_item(SMODS.Joker, "half", {
+    cost = 1,
+    config = {},
+    -- Don't override name since sprite scaling is based on it
+    loc_vars = function (_, info_queue, card)
+        return {vars = {}}
+    end,
+    calculate = function (_, card, context)
+        if context.cardarea == G.jokers then
+            return nil, true
+        end
+    end,
+})
+
+local Blind_set_blind_ref = Blind.set_blind
+function Blind:set_blind(blind, reset, silent)
+    local ret = Blind_set_blind_ref(self, blind, reset, silent)
+    if next(SMODS.find_card("j_half")) then
+        -- Background spin
+        G.ARGS.spin.real = (G.SETTINGS.reduced_motion and 0 or 1) * (
+                self.boss and ((self.config.blind.boss and self.config.blind.boss.showdown) and 0.5 or 0.25) or 0
+        )
+    end
+    return ret
+end
+
+
 -- pseudorandom\((.*?)\) ?< ?G\.GAME\.probabilities\.normal ?\/ ?(.*?)( |\)|$)
 -- listed_chance($1, $2)$3

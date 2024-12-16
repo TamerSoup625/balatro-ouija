@@ -177,6 +177,13 @@ return {
                     "{C:red}not{} contain a {C:attention}Flush",
                 },
             },
+            j_half={
+                name="Half Joker",
+                text={
+                    "All {C:attention}Blinds{} count",
+                    "as {C:attention}Boss Blinds",
+                },
+            },
         },
         Tag = {
             tag_voucher={
