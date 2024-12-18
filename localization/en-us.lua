@@ -155,8 +155,7 @@ return {
                 text={
                     "Played cards with {C:diamonds}#2#{} suit",
                     "give {C:mult}+#1#{} Mult when scored",
-                    "if played hand does",
-                    "{C:red}not{} contain a {C:attention}Flush",
+                    "if played hand is {C:red}not{} a {C:attention}Flush",
                 },
             },
             j_lusty_joker={
@@ -164,8 +163,7 @@ return {
                 text={
                     "Played cards with {C:hearts}#2#{} suit",
                     "give {C:mult}+#1#{} Mult when scored",
-                    "if played hand does",
-                    "{C:red}not{} contain a {C:attention}Flush",
+                    "if played hand is {C:red}not{} a {C:attention}Flush",
                 },
             },
             j_gluttenous_joker={
@@ -173,8 +171,7 @@ return {
                 text={
                     "Played cards with {C:clubs}#2#{} suit",
                     "give {C:mult}+#1#{} Mult when scored",
-                    "if played hand does",
-                    "{C:red}not{} contain a {C:attention}Flush",
+                    "if played hand is {C:red}not{} a {C:attention}Flush",
                 },
             },
             j_half={

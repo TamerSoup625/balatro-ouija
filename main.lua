@@ -821,7 +821,7 @@ for _, value in pairs(sinful_jokers) do
                 context.individual and
                 context.cardarea == G.play and
                 context.other_card:is_suit(card.ability.extra.suit) and
-                (not next(context.poker_hands["Flush"]))
+                context.scoring_name ~= "Flush"
             then
                 return {
                     mult = card.ability.extra.suit_mult,
