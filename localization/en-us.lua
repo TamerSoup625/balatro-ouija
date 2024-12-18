@@ -207,6 +207,14 @@ return {
                     "to a random {C:attention}Joker",
                 },
             },
+            c_sun={
+                name="The Sun",
+                text={
+                    "Converts up to",
+                    "{C:attention}#1#{} selected card(s)",
+                    "to a {C:attention}King{} of {C:hearts}Hearts",
+                },
+            },
         },
         Spectral = {
             c_hex = {
