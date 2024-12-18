@@ -916,5 +916,69 @@ new_item(SMODS.Tarot, "sun", {
 })
 
 
+local ultrakill_jokers = {
+    "j_cry_gardenfork",
+    "j_cry_lightupthenight",
+    "j_cry_nosound",
+    "j_cry_antennastoheaven",
+}
+
+local function get_ultrakill_joker(seed)
+    local uk_jokers = {}
+    for k, v in pairs(ultrakill_jokers) do
+        if not G.GAME.banned_keys[v] and G.P_CENTERS[v] then
+            table.insert(uk_jokers, v)
+        end
+    end
+    if #uk_jokers <= 0 then
+	    return "j_ceremonial"
+    else
+    	return pseudorandom_element(uk_jokers, pseudoseed(seed))
+    end
+end
+
+new_item(SMODS.Joker, "seeing_double", {
+    name = "ouija-Seeing Double", -- will prevent old calculation code from working
+	rarity = "cry_epic",
+    blueprint_compat = false,
+    cost = 14,
+    config = {},
+	loc_vars = function(self, info_queue)
+		info_queue[#info_queue + 1] = { set = "Other", key = "ultrakill_jokers" }
+		return { vars = {} }
+	end,
+    calculate = function (_, card, context)
+        if
+            context.destroying_card and
+            not context.blueprint and
+            #context.full_hand == 1 and
+            context.full_hand[1]:get_id() == 7 and
+            context.full_hand[1]:is_suit("Clubs") and
+            G.GAME.current_round.hands_played == 0
+        then
+            G.E_MANAGER:add_event(Event({
+                func = function() 
+                    local new_card
+                    new_card = create_card(
+                        "Joker",
+                        G.jokers,
+                        nil,
+                        nil,
+                        nil,
+                        nil,
+                        get_ultrakill_joker("seeing_double")
+                    )
+                    new_card:add_to_deck()
+                    G.jokers:emplace(new_card)
+                    new_card:start_materialize()
+                    return true
+                end}))
+            card_eval_status_text(context.blueprint_card or card, 'extra', nil, nil, nil, {message = localize('k_plus_joker'), colour = G.C.RED})
+            return true
+        end
+    end
+})
+
+
 -- pseudorandom\((.*?)\) ?< ?G\.GAME\.probabilities\.normal ?\/ ?(.*?)( |\)|$)
 -- listed_chance($1, $2)$3

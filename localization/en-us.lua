@@ -181,6 +181,20 @@ return {
                     "as {C:attention}Boss Blinds",
                 },
             },
+            j_seeing_double={
+                name="Seeing Double",
+                text={
+                    "If {C:attention}first hand{} of round is",
+                    "a single {C:attention}7{} of {C:clubs}Clubs{},",
+                    "destroy it and create",
+                    "an {C:red}ULTRAKILL{} Joker",
+                },
+                unlock={
+                    "Play a hand",
+                    "that contains",
+                    "{E:1,C:attention}#1#",
+                },
+            },
         },
         Tag = {
             tag_voucher={
@@ -267,6 +281,16 @@ return {
                     "{s:0.8}Oops! All 6s,",
                     "{s:0.8}Chocolate Die,",
                     "{s:0.8}etc.",
+                },
+            },
+            ultrakill_jokers = {
+                name = "ULTRAKILL Jokers",
+                text = {
+                    "Set of {C:red}Rare{} Jokers:",
+                    "{s:0.8}Garden of Forking Paths,",
+                    "{s:0.8}Light Up the Night,",
+                    "{s:0.8}No Sound, No Memory,",
+                    "{s:0.8}...Like Antennas to Heaven",
                 },
             },
         },
