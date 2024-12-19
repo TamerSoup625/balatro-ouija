@@ -10,6 +10,14 @@ return {
                     "Only {C:tarot}Tarot Cards{} appear in shop",
                 },
             },
+            b_erratic={
+                name="Erratic Deck",
+                text={
+                    "All {C:attention}cards{} in deck",
+                    "are of the same",
+                    "{C:attention}Suit{} and {C:attention}Rank{}",
+                },
+            },
         },
         Blind = {
             bl_arm={

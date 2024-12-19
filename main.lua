@@ -1,3 +1,18 @@
+--- STEAMODDED HEADER
+--- MOD_NAME: Ouija
+--- MOD_ID: Ouija
+--- PREFIX: ouija
+--- MOD_AUTHOR: [TamerSoup625]
+--- MOD_DESCRIPTION: Extension for Cryptid which focuses on modifying vanilla features.
+--- BADGE_COLOUR: 0000ff
+--- DEPENDENCIES: [Cryptid>=0.5.0, Steamodded>=1.0.0~ALPHA-1030e]
+--- VERSION: 0.0.0
+--- PRIORITY: 999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999
+
+----------------------------------------------
+------------MOD CODE -------------------------
+
+
 -- TODO: Check if Cryptid features are enabled or not
 
 
@@ -980,5 +995,25 @@ new_item(SMODS.Joker, "seeing_double", {
 })
 
 
+new_item(SMODS.Back, "erratic", {
+    config = {},
+    apply = function(self)
+		G.E_MANAGER:add_event(Event({
+			func = function()
+                local ten_of_spades = pseudorandom_element(G.P_CARDS, pseudoseed('ouija_erratic'))
+                for _, card in ipairs(G.playing_cards) do
+					card:set_base(ten_of_spades)
+				end
+				return true
+			end
+		}))
+    end
+})
+
+
 -- pseudorandom\((.*?)\) ?< ?G\.GAME\.probabilities\.normal ?\/ ?(.*?)( |\)|$)
 -- listed_chance($1, $2)$3
+
+
+----------------------------------------------
+------------MOD CODE END----------------------
