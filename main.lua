@@ -1041,6 +1041,17 @@ new_item(SMODS.Joker, "chicot", {
 })
 
 
+-- Make Standard Packs have a chance to contain Negative cards
+local poll_edition_ref = poll_edition
+function poll_edition(_key, _mod, _no_neg, _guaranteed)
+    if string.find(_key, "^standard_edition") ~= nil then
+        print("Poll with negative")
+        return poll_edition_ref(_key, _mod, false, _guaranteed)
+    end
+    return poll_edition_ref(_key, _mod, _no_neg, _guaranteed)
+end
+
+
 -- pseudorandom\((.*?)\) ?< ?G\.GAME\.probabilities\.normal ?\/ ?(.*?)( |\)|$)
 -- listed_chance($1, $2)$3
 
