@@ -292,6 +292,29 @@ return {
                     "to appear in shop",
                 },
             },
+            v_magic_trick={
+                name="Magic Trick",
+                text={
+                    "{C:attention}Playing cards{} can be",
+                    "purchased from the {C:attention}shop",
+                    "and may have {C:green}modifications",
+                    "{C:inactive,s:0.7}(ex. Enhancements, Seals, Editions)",
+                },
+            },
+            v_illusion={
+                name="Illusion",
+                text={
+                    "{C:attention}Playing cards{} cannot",
+                    "have a {C:attention}Seal{} in shop",
+                    "{C:cry_code,s:0.5}(https://discord.com/channels/1116389027176787968/1214601062166822983)",
+                },
+                unlock={
+                    "Buy a total of",
+                    "{C:attention}#1#{} playing cards",
+                    "from the shop",
+                    "{C:inactive}(#2#)",
+                },
+            },
         },
         Other = {
             dice_jokers = {
