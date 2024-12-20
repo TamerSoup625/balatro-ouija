@@ -203,6 +203,17 @@ return {
                     "{E:1,C:attention}#1#",
                 },
             },
+            j_chicot={
+                name="Chicot",
+                text={
+                    "Disables effect of",
+                    "every {C:attention}Boss Blind",
+                    "{X:dark_edition,C:white}^#1#{} Mult against {C:attention}Boss Blinds",
+                },
+                unlock={
+                    "{E:1,s:1.3}?????",
+                },
+            },
         },
         Tag = {
             tag_voucher={

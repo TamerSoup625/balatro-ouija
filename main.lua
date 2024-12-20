@@ -1011,6 +1011,36 @@ new_item(SMODS.Back, "erratic", {
 })
 
 
+new_item(SMODS.Joker, "chicot", {
+    name = "Ouija-Chicot",
+    config = {extra = 1.5},
+    blueprint_compat = true,
+    loc_vars = function (_, info_queue, card)
+        return {vars = {card.ability.extra}}
+    end,
+    calculate = function (_, card, context)
+        if context.setting_blind and not card.getting_sliced and context.blind.boss then
+            G.E_MANAGER:add_event(Event({func = function()
+                G.E_MANAGER:add_event(Event({func = function()
+                    G.GAME.blind:disable()
+                    play_sound('timpani')
+                    delay(0.4)
+                    return true end }))
+                card_eval_status_text(context.blueprint_card or card, 'extra', nil, nil, nil, {message = localize('ph_boss_disabled')})
+            return true end }))
+        end
+        if context.joker_main and G.GAME.blind.boss then
+            return {
+				message = localize{type='variable',key='a_powmult',vars={card.ability.extra}},
+				Emult_mod = card.ability.extra,
+				colour = G.C.DARK_EDITION,
+				card = card,
+			}
+		end
+    end
+})
+
+
 -- pseudorandom\((.*?)\) ?< ?G\.GAME\.probabilities\.normal ?\/ ?(.*?)( |\)|$)
 -- listed_chance($1, $2)$3
 
