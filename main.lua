@@ -16,7 +16,13 @@
 -- TODO: Check if Cryptid features are enabled or not
 
 
-local function new_item(smods_gameobject, key, table)
+-- REWORK_HEAVY is when the change is so big it may as well be a new item
+-- All decks should always be REWORK_HEAVY
+local REWORK_LIGHT = 0
+local REWORK_HEAVY = 1
+
+local function new_item(smods_gameobject, key, table, rework_val)
+    assert(rework_val ~= nil, "Must have a rework value (REWORK_PARTIAL or REWORK_FULL)")
     smods_gameobject:take_ownership(key, table)
 end
 
@@ -42,11 +48,11 @@ new_item(SMODS.Spectral, "hex", {
             info_queue[#info_queue + 1] = G.P_CENTERS.e_cry_astral
         end
     end,
-})
+}, REWORK_LIGHT)
 
 
 -- Makes mod badge show up
-new_item(SMODS.Joker, "ancient", {})
+new_item(SMODS.Joker, "ancient", {}, REWORK_LIGHT)
 
 function reset_ancient_card()
     G.GAME.current_round.ancient_card.suit = 'Spades'
@@ -89,7 +95,7 @@ new_item(SMODS.Joker, "flower_pot", {
             end
         end
     end
-})
+}, REWORK_LIGHT)
 
 
 new_item(SMODS.Joker, "four_fingers", {
@@ -97,7 +103,7 @@ new_item(SMODS.Joker, "four_fingers", {
     loc_vars = function (_, info_queue, card)
         return {vars = {card.ability.extra}}
     end,
-})
+}, REWORK_LIGHT)
 
 -- https://github.com/Steamopollys/Steamodded/blob/a6d4f684cf9b21637adce3228229f8ac28cce694/core/overrides.lua#L578
 local get_straight_ref = get_straight
@@ -202,7 +208,7 @@ new_item(SMODS.Blind, "arm", {
             end
         end 
     end,
-})
+}, REWORK_LIGHT)
 
 
 table.insert(Cryptid.memepack, "j_matador")
@@ -227,7 +233,7 @@ new_item(SMODS.Joker, "matador", {
             end
         end
     end,
-})
+}, REWORK_LIGHT)
 
 
 new_item(SMODS.Joker, "hit_the_road", {
@@ -269,7 +275,7 @@ new_item(SMODS.Joker, "hit_the_road", {
             }
         end
     end,
-})
+}, REWORK_LIGHT)
 
 
 new_item(SMODS.Spectral, "black_hole", {
@@ -298,7 +304,7 @@ new_item(SMODS.Spectral, "black_hole", {
         end
         update_hand_text({sound = 'button', volume = 0.7, pitch = 1.1, delay = 0}, {mult = 0, chips = 0, handname = '', level = ''})
     end
-})
+}, REWORK_LIGHT)
 
 
 new_item(SMODS.Enhancement, "stone", {
@@ -314,7 +320,7 @@ new_item(SMODS.Enhancement, "stone", {
             return {vars = {self.config.x_chips}}
         end
     end,
-})
+}, REWORK_LIGHT)
 
 
 new_item(SMODS.Joker, "credit_card", {
@@ -332,7 +338,7 @@ new_item(SMODS.Joker, "credit_card", {
         G.GAME.bankrupt_at = G.GAME.bankrupt_at + card.ability.extra.max_debt
         G.GAME.ouija_interest_start = G.GAME.ouija_interest_start - card.ability.extra.ouija_interest_start
     end,
-})
+}, REWORK_LIGHT)
 
 
 new_item(SMODS.Back, "magic", {
@@ -357,7 +363,7 @@ new_item(SMODS.Back, "magic", {
         G.GAME.planet_rate = 0
         G.GAME.tarot_rate = 1e100
     end
-})
+}, REWORK_HEAVY)
 
 
 new_item(SMODS.Joker, "midas_mask", {
@@ -407,7 +413,7 @@ new_item(SMODS.Joker, "midas_mask", {
             end
         end
     end
-})
+}, REWORK_HEAVY)
 
 Cryptid.M_jokers["j_midas_mask"] = true
 
@@ -470,7 +476,7 @@ new_item(SMODS.Tag, "voucher", {
             tag.triggered = true
 		end
     end
-})
+}, REWORK_LIGHT)
 
 local Card_set_cost_ref = Card.set_cost
 function Card:set_cost()
@@ -499,7 +505,7 @@ new_item(SMODS.Joker, "dna", {
             return nil, true
         end
     end
-})
+}, REWORK_HEAVY)
 
 
 new_item(SMODS.Blind, "eye", {
@@ -513,7 +519,7 @@ new_item(SMODS.Blind, "eye", {
 	in_pool = function()
 		return G.GAME.round_resets.hands >= 2 and (not next(SMODS.find_card("j_cry_maze"))) and G.GAME.round_resets.ante >= 2
 	end,
-})
+}, REWORK_HEAVY)
 
 
 new_item(SMODS.Joker, "constellation", {
@@ -547,7 +553,7 @@ new_item(SMODS.Joker, "constellation", {
             return nil, true
         end
     end
-})
+}, REWORK_HEAVY)
 
 local level_up_hand_ref = level_up_hand
 function level_up_hand(card, hand, instant, amount)
@@ -602,7 +608,7 @@ new_item(SMODS.Tarot, "wheel_of_fortune", {
             return {vars = {G.GAME.probabilities.normal, self.config.extra}}
         end
     end,
-})
+}, REWORK_LIGHT)
 
 
 -- Thanks Tizio a cui Piacciono Cose for giving me ideas for sans
@@ -636,7 +642,7 @@ new_item(SMODS.Joker, "mr_bones", {
         end
     end,
     cost = 1,
-})
+}, REWORK_LIGHT)
 
 local G_FUNCS_sell_card_ref = G.FUNCS.sell_card
 G.FUNCS.sell_card = function (e)
@@ -721,7 +727,7 @@ new_item(SMODS.Joker, "walkie_talkie", {
             end
         end
     end,
-})
+}, REWORK_HEAVY)
 
 
 -- If a mod wants to add compatibility, ensure it initializes Ouija_dice_jokers by adding this line:
@@ -778,7 +784,7 @@ new_item(SMODS.Tag, "d_six", {
 		info_queue[#info_queue + 1] = { set = "Other", key = "dice_jokers" }
 		return { vars = {} }
 	end,
-})
+}, REWORK_HEAVY)
 
 
 new_item(SMODS.Voucher, "crystal_ball", {
@@ -786,7 +792,7 @@ new_item(SMODS.Voucher, "crystal_ball", {
 		info_queue[#info_queue + 1] = G.P_CENTERS.c_fool
 		return { vars = {} }
 	end,
-})
+}, REWORK_LIGHT)
 
 
 new_item(SMODS.Joker, "hallucination", {
@@ -815,7 +821,7 @@ new_item(SMODS.Joker, "hallucination", {
             card_eval_status_text(card, 'extra', nil, nil, nil, {message = localize('k_plus_consumeable')})
         end
     end
-})
+}, REWORK_LIGHT)
 
 
 local sinful_jokers = {
@@ -844,7 +850,7 @@ for _, value in pairs(sinful_jokers) do
                 }
             end
         end,
-    })
+    }, REWORK_LIGHT)
 end
 
 
@@ -860,7 +866,7 @@ new_item(SMODS.Joker, "half", {
             return nil, true
         end
     end,
-})
+}, REWORK_HEAVY)
 
 local Blind_set_blind_ref = Blind.set_blind
 function Blind:set_blind(blind, reset, silent)
@@ -892,7 +898,7 @@ new_item(SMODS.Spectral, "soul", {
     can_use = function(self, card)
         return true
     end,
-})
+}, REWORK_LIGHT)
 
 
 new_item(SMODS.Tarot, "sun", {
@@ -928,7 +934,7 @@ new_item(SMODS.Tarot, "sun", {
         G.E_MANAGER:add_event(Event({trigger = 'after', delay = 0.2,func = function() G.hand:unhighlight_all(); return true end }))
         delay(0.5)
     end
-})
+}, REWORK_HEAVY)
 
 
 local ultrakill_jokers = {
@@ -992,7 +998,7 @@ new_item(SMODS.Joker, "seeing_double", {
             return true
         end
     end
-})
+}, REWORK_HEAVY)
 
 
 new_item(SMODS.Back, "erratic", {
@@ -1008,7 +1014,7 @@ new_item(SMODS.Back, "erratic", {
 			end
 		}))
     end
-})
+}, REWORK_HEAVY)
 
 
 new_item(SMODS.Joker, "chicot", {
@@ -1038,7 +1044,7 @@ new_item(SMODS.Joker, "chicot", {
 			}
 		end
     end
-})
+}, REWORK_LIGHT)
 
 
 -- Make Standard Packs have a chance to contain Negative cards
@@ -1077,8 +1083,8 @@ function create_card_for_shop(area)
     return ret
 end
 
-new_item(SMODS.Voucher, "magic_trick", {})
-new_item(SMODS.Voucher, "illusion", {})
+new_item(SMODS.Voucher, "magic_trick", {}, REWORK_LIGHT)
+new_item(SMODS.Voucher, "illusion", {}, REWORK_LIGHT)
 
 
 -- pseudorandom\((.*?)\) ?< ?G\.GAME\.probabilities\.normal ?\/ ?(.*?)( |\)|$)
