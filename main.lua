@@ -14,6 +14,7 @@
 
 
 -- TODO: Check if Cryptid features are enabled or not
+-- TODO: Allow features to not be overridden, which is much harder than it looks
 
 
 -- REWORK_HEAVY is when the change is so big it may as well be a new item
@@ -23,14 +24,6 @@ OUIJA_REWORK_HEAVY = 1
 
 function Ouija_new_item(smods_gameobject, key, table, rework_val)
     assert(rework_val ~= nil, "Must have a rework value (REWORK_PARTIAL or REWORK_FULL)")
-    local loc_vars_func = table.loc_vars or function (self, info_queue, card) return {} end
-    table.loc_vars = function (self, info_queue, card)
-        local ret = loc_vars_func(self, info_queue, card) or {}
-        if not ret["key"] then
-            ret["key"] = smods_gameobject.class_prefix .. "_ouija_" .. key
-        end
-        return ret
-    end
     smods_gameobject:take_ownership(key, table)
 end
 

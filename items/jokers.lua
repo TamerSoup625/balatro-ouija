@@ -578,7 +578,7 @@ Ouija_new_item(SMODS.Joker, "seeing_double", {
     cost = 14,
     config = {},
 	loc_vars = function(self, info_queue)
-		info_queue[#info_queue + 1] = { set = "Other", key = "ouija_ultrakill_jokers" }
+		info_queue[#info_queue + 1] = { set = "Other", key = "ultrakill_jokers" }
 		return { vars = {} }
 	end,
     calculate = function (_, card, context)
