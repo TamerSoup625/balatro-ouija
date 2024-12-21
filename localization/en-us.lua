@@ -195,7 +195,7 @@ return {
                     "If {C:attention}first hand{} of round is",
                     "a single {C:attention}7{} of {C:clubs}Clubs{},",
                     "destroy it and create",
-                    "an {C:red}ULTRAKILL{} Joker",
+                    "an {C:red}ULTRAVIOLENCE{} Joker",
                 },
                 unlock={
                     "Play a hand",
@@ -326,7 +326,7 @@ return {
                 },
             },
             ultrakill_jokers = {
-                name = "ULTRAKILL Jokers",
+                name = "ULTRAVIOLENCE Jokers",
                 text = {
                     "Set of {C:red}Rare{} Jokers:",
                     "{s:0.8}Garden of Forking Paths,",
