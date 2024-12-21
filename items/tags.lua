@@ -116,7 +116,7 @@ Ouija_new_item(SMODS.Tag, "d_six", {
 		end
 	end,
 	loc_vars = function(self, info_queue)
-		info_queue[#info_queue + 1] = { set = "Other", key = "dice_jokers" }
+		info_queue[#info_queue + 1] = { set = "Other", key = "ouija_dice_jokers" }
 		return { vars = {} }
 	end,
 }, OUIJA_REWORK_HEAVY)
