@@ -25,19 +25,10 @@ function Ouija_new_item(smods_gameobject, key, table, rework_val)
     assert(rework_val ~= nil, "Must have a rework value (REWORK_PARTIAL or REWORK_FULL)")
     local loc_vars_func = table.loc_vars or function (self, info_queue, card) return {} end
     table.loc_vars = function (self, info_queue, card)
-        -- HACK: This overrides return key
         local ret = loc_vars_func(self, info_queue, card) or {}
-        local first_underscore_pos = 0
-        for i = 1, string.len(self.key), 1 do
-            if string.sub(self.key, i, i) == "_" then
-                first_underscore_pos = i
-                break
-            end
+        if not ret["key"] then
+            ret["key"] = smods_gameobject.class_prefix .. "_ouija_" .. key
         end
-        -- Includes underscore
-        local prefix = string.sub(self.key, 1, first_underscore_pos)
-        local suffix = string.sub(self.key, first_underscore_pos + 1)
-        ret["key"] = prefix .. "ouija_" .. suffix
         return ret
     end
     smods_gameobject:take_ownership(key, table)
