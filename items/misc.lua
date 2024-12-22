@@ -16,7 +16,7 @@ Ouija_new_item(SMODS.Enhancement, "stone", {
 
 Ouija_new_item(SMODS.Back, "magic", {
     config = {},
-    loc_vars = function (_, info_queue, card)
+    loc_vars = function (self, info_queue, card)
         return {vars = {}}
     end,
     apply = function(self)
@@ -40,7 +40,10 @@ Ouija_new_item(SMODS.Back, "magic", {
 
 
 Ouija_new_item(SMODS.Back, "erratic", {
-    config = {},
+    config = {hand_size = -3},
+    loc_vars = function (self, info_queue, card)
+        return {vars = {self.config.hand_size}}
+    end,
     apply = function(self)
 		G.E_MANAGER:add_event(Event({
 			func = function()

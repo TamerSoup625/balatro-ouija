@@ -16,6 +16,7 @@ return {
                     "All {C:attention}cards{} in deck",
                     "are of the same",
                     "{C:attention}Suit{} and {C:attention}Rank{}",
+                    "{C:attention}#1#{} hand size",
                 },
             },
         },
