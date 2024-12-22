@@ -56,6 +56,7 @@ Ouija_new_item(SMODS.Tarot, "wheel_of_fortune", {
     use = function (_, card, area, copier)
         local used_tarot = copier or card
         if pseudorandom('wheel_of_fortune') < G.GAME.probabilities.normal/card.ability.extra then
+            card.cry_wheel_success = true
             local temp_pool = card.eligible_strength_jokers
             G.E_MANAGER:add_event(Event({trigger = 'after', delay = 0.4, func = function()
                 local over = false
