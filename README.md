@@ -1,9 +1,18 @@
 # Ouija - Cryptid expansion for vanilla items
 This mod will aim to unbalance vanilla features (like pre-existing Jokers and Consumables) to go along with [Cryptid](https://discord.com/channels/1116389027176787968/1219749193204371456).
 
-NOTE: The mod is in a very early stage, stay here only if you want to contribute with Pull Requests.
+You can access the stable releases [here](https://github.com/TamerSoup625/balatro-ouija/releases) or click the big Code button above to download the latest one.
+
+Right now the mod is in alpha state but I would really like to know anyway what you think about this mod. Thanks!
 
 [Discord Link](https://discord.com/channels/1116389027176787968/1315016378889011361)
 
-![Screenshot 2024-12-07 183343](https://github.com/user-attachments/assets/f0ce3eea-9217-4206-88e8-c6de4c69f6cb)
-![Screenshot 2024-12-07 183353](https://github.com/user-attachments/assets/4e7b2565-f96f-484d-b071-e7f580717ffe)
+[Mod Spreadsheet](https://docs.google.com/spreadsheets/d/1pKIXis4livKSmA4O2wnWnB0V8lcpeGSKnAnX9hhC1Lc/edit?usp=sharing)
+
+## Known Issues
+- The mod does not check if certain Cryptid features are enabled or not, so you may get crashes if you disabled some.
+- The current method of adding features is pretty bad, I know. The next release will allow you to keep modded items along with vanilla ones.
+
+## Current Additions
+
+![ouija_additions](https://github.com/user-attachments/assets/5c2027ea-f505-491e-9e1e-6e8cc0b27792)
