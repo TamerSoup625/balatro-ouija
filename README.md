@@ -1,3 +1,8 @@
+# I AM NO LONGER INTERESTED IN UPDATING THE MOD
+
+The mod is now archived
+sorry
+
 # Ouija - Cryptid expansion for vanilla items
 This mod will aim to unbalance vanilla features (like pre-existing Jokers and Consumables) to go along with [Cryptid](https://discord.com/channels/1116389027176787968/1219749193204371456).
 
